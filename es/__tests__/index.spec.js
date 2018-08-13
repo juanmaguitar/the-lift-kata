@@ -1,17 +1,18 @@
  import Lift from '../index';
 
 describe('Lift', () => {
-  it('should be a class with the following API: call(), getFloor()', () => {
+  it('should be a class with the following API: getCurrentFloor(), call(), goto()', () => {
     expect(Lift).toBeInstanceOf(Function);
     expect(Lift.prototype.call).toBeInstanceOf(Function);
-    expect(Lift.prototype.getFloor).toBeInstanceOf(Function);
+    expect(Lift.prototype.getCurrentFloor).toBeInstanceOf(Function);
+    expect(Lift.prototype.goto).toBeInstanceOf(Function);
   });
 
-  describe('#getFloor()', () => {
+  describe('#getCurrentFloor()', () => {
     it('should return a number', () => {
       const lift = new Lift();
 
-      const currentFloor = lift.getFloor();
+      const currentFloor = lift.getCurrentFloor();
 
       expect(currentFloor).toEqual(expect.any(Number));
     });
@@ -20,7 +21,7 @@ describe('Lift', () => {
       it('should be at floor 0', () => {
         const lift = new Lift();
 
-        const currentFloor = lift.getFloor();
+        const currentFloor = lift.getCurrentFloor();
 
         expect(currentFloor).toBe(0);
       });
@@ -33,7 +34,7 @@ describe('Lift', () => {
 
       lift.call({ sourceFloor: 3, direction: 'up' });
 
-      const currentFloor = lift.getFloor();
+      const currentFloor = lift.getCurrentFloor();
 
       expect(currentFloor).toBe(3);
     });
@@ -45,10 +46,22 @@ describe('Lift', () => {
         lift.call({ sourceFloor: 3, direction: 'up' });
         lift.call({ sourceFloor: -1, direction: 'up' });
 
-        const currentFloor = lift.getFloor();
+        const currentFloor = lift.getCurrentFloor();
 
         expect(currentFloor).toBe(-1);
       });
+    });
+  });
+
+  describe('#goto({ destFloor })', () => {
+    it('should make the lift move to the destination floor', () => {
+      const lift = new Lift();
+
+      lift.goto({ destFloor: 4 });
+
+      const currentFloor = lift.getCurrentFloor();
+
+      expect(currentFloor).toBe(4);
     });
   });
 });

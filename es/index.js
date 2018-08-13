@@ -1,24 +1,37 @@
 /* eslint-disable no-underscore-dangle */
 
+const weakMap = new WeakMap();
+const getState = instance => weakMap.get(instance);
+
 class Lift {
   constructor() {
-    this._currentFloor = 0;
-  }
+    const state = {
+      currentFloor: 0,
+    };
 
-  /**
-   * @param {options} Object
-   * @param {Number} sourceFloor
-   * @param {string} direction
-   */
-  call({ sourceFloor, direction }) {
-    this._currentFloor = sourceFloor;
+    weakMap.set(this, state);
   }
 
   /**
    * @return {Number}
    */
-  getFloor() {
-    return this._currentFloor;
+  getCurrentFloor() {
+    return getState(this).currentFloor;
+  }
+
+  /**
+   * @param {Number} sourceFloor
+   * @param {string} direction
+   */
+  call({ sourceFloor, direction }) {
+    getState(this).currentFloor = sourceFloor;
+  }
+
+  /**
+   * @param {Number} destFloor
+   */
+  goto({ destFloor }) {
+    getState(this).currentFloor = destFloor;
   }
 }
 
