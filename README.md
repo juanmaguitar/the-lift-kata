@@ -30,9 +30,9 @@ const lift = new Lift({
 });
 
 const liftStrategy = LiftStrategy({
-  requestedFloors: [{ 4, up }, { 2, up }],
-  calls: [{ 1, up }, { 2 up }],
-})
+  calls: [{ 2, up }, { 6, down }],
+  requestedFloors: [{ 2, up }, { 4, up }],
+});
 
 liftStrategy.addLift(lift);
 liftStrategy.execute();
@@ -42,7 +42,6 @@ liftStrategy.execute();
 lift.getCurrentFloor(); // -> 0
 
 lift.call({ sourceFloor: 0, direction: 'up' });
-lift.tick();
 lift.getCurrentFloor(); // -> 0
 
 lift.goTo({ floor: 4 });
