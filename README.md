@@ -24,12 +24,38 @@ npm install lift
 ```js
 import Lift from 'lift';
 
-const lift = new Lift();
+const lift = new Lift({
+  currentFloor: 1,
+  direction: 'up',
+});
 
-lift.getFloor(); // -> 4
-lift.call({ sourceFloor: 3, direction: 'up' });
-lift.getFloor(); // -> 3
-// ...
+const liftStrategy = LiftStrategy({
+  requestedFloors: [{ 4, up }, { 2, up }],
+  calls: [{ 1, up }, { 2 up }],
+})
+
+liftStrategy.addLift(lift);
+liftStrategy.execute();
+
+// start the dance!
+
+lift.getCurrentFloor(); // -> 0
+
+lift.call({ sourceFloor: 0, direction: 'up' });
+lift.tick();
+lift.getCurrentFloor(); // -> 0
+
+lift.goTo({ floor: 4 });
+lift.goTo({ floor: 2 });
+lift.tick();
+lift.getCurrentFloor(); // -> 2
+
+lift.call({ sourceFloor: 1, direction: 'up' });
+lift.tick();
+lift.getCurrentFloor(); // -> 4
+
+lift.tick();
+lift.getCurrentFloor(); // -> 1
 ```
 
 ## Testing
