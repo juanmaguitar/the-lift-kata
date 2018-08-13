@@ -1,20 +1,4 @@
-# Lift
-
-```js
-const lift = new Lift();
-
-lift.getFloor(); // 4
-lift.getPassengers(); // []
-
-lift.call({ sourceFloor: 3, direction: 'up' });
-// ...
-lift.getFloor(); // 3
-lift.getPassengers(); // ['rudy']
-// ...
-
-
-```
-
+# The lift kata
 
 ## Installation
 
